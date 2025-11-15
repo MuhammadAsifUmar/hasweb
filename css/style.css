@@ -35,6 +35,7 @@ a {
     text-decoration: none;
     color: #007bff;
     transition: all 0.3s ease;
+
 }
 
 ul {
@@ -241,6 +242,9 @@ main {
 /* About Us, Services, Destinations, Courses, Contact Sections */
 .about-us, .services, .destinations, .courses, .contact {
     padding: 4rem 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
 }
 
 h2 {
@@ -267,7 +271,7 @@ h2 {
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     perspective: 1000px;
-    height: 350px;
+    height: 450px;
     position: relative;
 }
 
@@ -350,11 +354,34 @@ h2 {
     background: var(--gradient-1);
     color: white;
     transform: rotateY(180deg);
-    padding: 2.5rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     overflow-y: auto;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    max-height: 100%;
+    box-sizing: border-box;
+}
+
+/* Custom scrollbar for card-back */
+.card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-back::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.card-back::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.card-back::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .card-back h4 {
@@ -367,6 +394,9 @@ h2 {
     font-size: 1rem;
     line-height: 1.8;
     margin-bottom: 1.5rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .card-back ul {
@@ -379,6 +409,8 @@ h2 {
     padding-left: 1.5rem;
     position: relative;
     font-size: 0.95rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .card-back ul li::before {
@@ -451,6 +483,97 @@ h2 {
     color: #555;
 }
 
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.about-content {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+}
+
+.about-content p {
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.about-stat {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(118, 75, 162, 0.15);
+}
+
+.about-stat span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.about-image {
+    position: relative;
+    min-height: 320px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.about-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+    filter: brightness(0.8);
+}
+
+.about-image::after {
+    content: "Let's Plan Your Career Together";
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.about-pillars {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.pillar-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid transparent;
+    border-image: var(--gradient-1) 1;
+}
+
+.pillar-card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
 .featured-services, .featured-destinations {
     padding: 5rem 0;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%);
@@ -493,6 +616,94 @@ h2 {
     opacity: 0.95;
     position: relative;
     z-index: 1;
+}
+
+.experience-section, .mbbs-section, .tuition-section, .requirements-section, .global-universities, .eu-classification {
+    background: #fff;
+    padding: 4rem 2rem;
+    border-radius: 25px;
+    margin: 3rem auto;
+    max-width: 1200px;
+    box-shadow: var(--shadow-md);
+}
+
+.experience-cards, .requirement-columns, .university-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.experience-card, .registration-panel, .university-card {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.experience-card h3, .university-card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.experience-card ul {
+    padding-left: 1rem;
+    color: #555;
+}
+
+.table-scroll {
+    overflow-x: auto;
+    margin-top: 2rem;
+}
+
+.eu-table, .tuition-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.eu-table th, .eu-table td, .tuition-table th, .tuition-table td {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: left;
+}
+
+.eu-table th, .tuition-table th {
+    background: var(--gradient-1);
+    color: #fff;
+}
+
+.mbbs-section ul, .requirements-section ul {
+    list-style: disc;
+    padding-left: 1.2rem;
+    color: #555;
+}
+
+.scholarship-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.university-card ul {
+    columns: 2;
+    gap: 1rem;
+    padding-left: 1rem;
+    color: #555;
+}
+
+.university-card a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.social-media a.whatsapp-link {
+    background: #25D366;
+}
+
+.social-media a.whatsapp-link:hover {
+    transform: translateY(-5px) scale(1.1);
 }
 
 /* Contact Form */
@@ -930,6 +1141,7 @@ footer {
 
 .scroll-to-top.show {
     display: flex;
+    
 }
 
 .scroll-to-top:hover {
@@ -1137,10 +1349,9 @@ img:hover {
 
 /* Scroll Animations */
 .fade-in {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.6s ease;
-    animation: fadeInUp 0.8s ease-out;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .fade-in.visible {
@@ -1149,10 +1360,9 @@ img:hover {
 }
 
 .slide-in-left {
-    opacity: 1;
-    transform: translateX(0);
-    transition: all 0.6s ease;
-    animation: slideInLeft 0.8s ease-out;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .slide-in-left.visible {
@@ -1161,10 +1371,9 @@ img:hover {
 }
 
 .slide-in-right {
-    opacity: 1;
-    transform: translateX(0);
-    transition: all 0.6s ease;
-    animation: slideInRight 0.8s ease-out;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .slide-in-right.visible {
@@ -1172,20 +1381,21 @@ img:hover {
     transform: translateX(0);
 }
 
-/* Initial state for scroll-triggered animations */
-.fade-in:not(.visible) {
-    opacity: 0;
-    transform: translateY(30px);
+/* Ensure main content sections are always visible (but can animate) */
+section.about-us,
+section.services,
+section.courses,
+section.destinations,
+section.contact {
+    visibility: visible !important;
+    display: block !important;
 }
 
-.slide-in-left:not(.visible) {
-    opacity: 0;
-    transform: translateX(-50px);
-}
-
-.slide-in-right:not(.visible) {
-    opacity: 0;
-    transform: translateX(50px);
+/* Hero section should be visible immediately */
+.hero,
+.hero * {
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 /* Responsive */

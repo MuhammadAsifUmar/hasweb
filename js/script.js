@@ -1,5 +1,15 @@
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
+    // Ensure sections are visible but allow animations
+    const allSections = document.querySelectorAll('section');
+    allSections.forEach(section => {
+        section.style.visibility = 'visible';
+        section.style.display = '';
+        // Hero section should be visible immediately
+        if (section.classList.contains('hero')) {
+            section.style.opacity = '1';
+        }
+    });
     // Mobile Menu
     const menuToggle = document.createElement('div');
     menuToggle.className = 'menu-toggle';
@@ -42,23 +52,70 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
     
-    // Scroll Animations
+    // Scroll Animations - Elements start hidden and animate in on scroll
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -100px 0px'
     };
     
+    // Function to check if element is in viewport (any part visible)
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+        return (
+            rect.top < windowHeight &&
+            rect.bottom > 0 &&
+            rect.left < windowWidth &&
+            rect.right > 0
+        );
+    }
+    
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                // Stop observing once animated
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
     
     // Observe all elements with animation classes
     const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
-    animatedElements.forEach(el => observer.observe(el));
+    animatedElements.forEach(el => {
+        // Don't animate hero sections immediately
+        if (!el.closest('.hero')) {
+            // If element is already in viewport, animate it immediately
+            if (isInViewport(el)) {
+                el.classList.add('visible');
+            } else {
+                observer.observe(el);
+            }
+        } else {
+            // Hero sections should be visible immediately
+            el.classList.add('visible');
+        }
+    });
+    
+    // Also observe sections that might not have animation classes yet
+    const sectionsToObserve = document.querySelectorAll('section:not(.hero)');
+    sectionsToObserve.forEach(section => {
+        if (!section.classList.contains('fade-in') && 
+            !section.classList.contains('slide-in-left') && 
+            !section.classList.contains('slide-in-right')) {
+            // If section is already in viewport, add animation class and make visible
+            if (isInViewport(section)) {
+                if (!section.classList.contains('fade-in') && 
+                    !section.classList.contains('slide-in-left') && 
+                    !section.classList.contains('slide-in-right')) {
+                    section.classList.add('fade-in', 'visible');
+                }
+            } else {
+                observer.observe(section);
+            }
+        }
+    });
     
     // Smooth Scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -231,6 +288,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 section.classList.add('slide-in-left');
             }
+            // Observe for scroll animation
+            observer.observe(section);
         }
     });
     
